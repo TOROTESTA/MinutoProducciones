@@ -15,8 +15,9 @@
     --color-bg: #ffffff;
 
     /* Fonts */
-    --font-sans-serif: 'Futura', 'League Spartan', 'Trebuchet MS', Arial, sans-serif;
-    --font-serif: 'EB Garamond', Georgia, Times, serif;
+    --font-sans-serif: "Myriad Pro", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-display: "GT America Expanded", "GT America Extended", "Myriad Pro", system-ui, sans-serif;
+    --font-serif: Georgia, Times, serif; /* si no usás serif, dejalo simple */
     --font-mono: Menlo, Courier, monospace;
     --font-light: 100;
     --font-normal: 400;

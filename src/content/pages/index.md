@@ -1,8 +1,8 @@
 ---
 templateKey: index-page
-title: Clay Astro
+title: Minuto
 image: /img/clay-images-7.jpg
-description: A stunning Astro theme designed for captivating image-centric websites, perfect for photographers, portfolios, and blogs.
+description: Minuto producciones.
 thumbnail: /img/clay-images-7.jpg
 heading: Main Heading
 subheading: Sub HEading

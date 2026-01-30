@@ -16,5 +16,8 @@
     "postcss-color-function": "^4.1.0",
     "postcss-custom-properties": "^14.0.6",
     "postcss-easy-import": "^4.0.0"
+  },
+  "devDependencies": {
+    "ttf2woff2": "^8.0.0"
   }
 }

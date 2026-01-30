@@ -7,6 +7,8 @@ const commonSchema = z.object({
   thumbnail: z.string().optional(),
   templateKey: z.string().optional(),
   // Add other fields as discovered
+  heroVideo: z.string().optional(),
+  heroPoster: z.string().optional(),
   image: z.string().optional(),
   featuredimage: z.string().optional(),
   heading: z.string().optional(),

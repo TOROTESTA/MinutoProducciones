@@ -1,21 +1,48 @@
 ---
 export interface Props {
   count: number;
-  post: any; // using any for now, better to use CollectionEntry
+  post: any;
   slug: string;
 }
 
 const { count, post, slug } = Astro.props;
+
 const thumbnail = post.data.thumbnail;
+const heroVideoRaw = post.data.heroVideo;
+
+// Solo aceptamos rutas web válidas tipo "/video/archivo.mp4"
+const heroVideo =
+  typeof heroVideoRaw === 'string' &&
+  heroVideoRaw.trim().startsWith('/') &&
+  heroVideoRaw.trim().endsWith('.mp4')
+    ? heroVideoRaw.trim()
+    : null;
+
 const title = post.data.title;
+
 const isLarge = count % 3 === 0;
 
-// Construct background image style
-const bgStyle = thumbnail ? `background-image: url(${thumbnail});` : '';
-const postClass = `post-card ${isLarge ? 'post-card-large' : ''} ${thumbnail ? 'with-image' : 'no-image'} post`;
+// Solo usar background-image si NO hay video
+const bgStyle = !heroVideo && thumbnail ? `background-image: url(${thumbnail});` : '';
+
+const postClass =
+  `post-card ${isLarge ? 'post-card-large' : ''} ${thumbnail ? 'with-image' : 'no-image'} post`;
 ---
 
 <article class={postClass} style={bgStyle}>
+  {heroVideo && (
+    <video
+      class="post-card-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+    >
+      <source src={heroVideo} type="video/mp4" />
+    </video>
+  )}
+
   <a href={`/${slug}`} class="post-card-link">
     <div class="post-card-content">
       <h2 class="post-card-title">
@@ -39,6 +66,21 @@ const postClass = `post-card ${isLarge ? 'post-card-large' : ''} ${thumbnail ? '
   counter-increment: posts;
   margin: 1rem;
   border-radius: 12px;
+}
+.post-card-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Asegura que el overlay y el link queden arriba del video */
+.post-card-link,
+.post-card-content {
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 700px) {

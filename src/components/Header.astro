@@ -1,53 +1,140 @@
 ---
 export interface Props {
-    title?: string;
+  title?: string;
 }
-
 const { title } = Astro.props;
 ---
-<header class="site-head">
-    <div class="site-head-container">
-        <a class="nav-burger" href="#">
-            <div class="hamburger hamburger--collapse" aria-label="Menu" role="button" aria-controls="navigation">
-                <div class="hamburger-box">
-                    <div class="hamburger-inner" />
-                </div>
-            </div>
-        </a>
-        <nav id="swup" class="site-head-left">
-            <ul class="nav" role="menu">
-                <li class="nav-home" role="menuitem">
-                    <a href="/">Home</a>
-                </li>
-                <li class="nav-home" role="menuitem">
-                    <a href="/bio">Bio</a>
-                </li>
-                <li class="nav-home" role="menuitem">
-                    <a href="/work">Work</a>
-                </li>
-                <li class="nav-home" role="menuitem">
-                    <a href="/news">News</a>
-                </li>
-                <li class="nav-home" role="menuitem">
-                    <a href="/contact">Contact</a>
-                </li>
-                <li class="nav-home" role="menuitem">
-                    <a href="/elements">Elements</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="site-head-center">
-            <a class="site-head-logo" href="/">
-                {title || "Clay"}
-            </a>
+
+<header class="site-head" data-header>
+  <div class="site-head-container">
+    <!-- Burger -->
+    <button
+      class="nav-burger"
+      type="button"
+      aria-label="Abrir menú"
+      aria-controls="navigation"
+      aria-expanded="false"
+      data-burger
+    >
+      <div class="hamburger hamburger--collapse">
+        <div class="hamburger-box">
+          <div class="hamburger-inner" />
         </div>
-        <div class="site-head-right">
-            <div class="social-links">
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
-                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                </button>
-            </div>
-        </div>
+      </div>
+    </button>
+
+    <!-- Nav -->
+    <nav id="navigation" class="site-head-left" aria-label="Navegación principal">
+      <ul class="nav" role="menu">
+        <li role="menuitem"><a href="/">Home</a></li>
+        <li role="menuitem"><a href="/bio">Eventos</a></li>
+        <li role="menuitem"><a href="/work">Nosotros</a></li>
+        <li role="menuitem"><a href="/contact">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <!-- Logo SIEMPRE visible -->
+    <div class="site-head-center">
+      <a class="site-head-logo" href="/" aria-label="Minuto Producciones">
+        <img
+          src="/img/MinutoProd-Logo-01.png"
+          alt="Minuto Producciones"
+          class="site-head-logo-img"
+          loading="eager"
+          decoding="async"
+        />
+      </a>
     </div>
+
+    <div class="site-head-right">
+      <div class="social-links">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+          <!-- tus svgs -->
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </div>
+    </div>
+  </div>
 </header>
+
+<script>
+  const header = document.querySelector('[data-header]');
+  const burger = document.querySelector('[data-burger]');
+
+  if (header && burger) {
+    burger.addEventListener('click', () => {
+      const isOpen = header.classList.toggle('nav-open');
+      burger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Cierra menú al navegar (opcional)
+    header.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        header.classList.remove('nav-open');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>
+
+<style>
+  /* Logo: evita recortes */
+  .site-head-logo {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+  }
+  .site-head-logo-img {
+    height: 90px;        /* <-- bajá desde 100px */
+    width: auto;
+    display: block;
+    object-fit: contain;
+    max-width: 220px;    /* evita que se coma todo */
+  }
+
+  /* Burger button reset */
+  .nav-burger {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    display: none; /* desktop: oculto */
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .nav-burger {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* El nav pasa a ser desplegable */
+    .site-head-left {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      padding: 12px 16px;
+      z-index: 50;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(8px);
+    }
+
+    header.site-head.nav-open .site-head-left {
+      display: block;
+    }
+
+    .site-head-container {
+      position: relative; /* para que el nav absoluto se ancle acá */
+    }
+
+    /* Logo más chico en mobile para que no se corte */
+    .site-head-logo-img {
+      height: 50px;
+      max-width: 160px;
+    }
+  }
+</style>
+
