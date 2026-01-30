@@ -1,5 +1,3 @@
-# 🏺 Clay Theme for Astro
-
 # Minuto Producciones – Portfolio Web
 
 Sitio web institucional y portfolio para **Minuto Producciones**, desarrollado con **Astro**.  
