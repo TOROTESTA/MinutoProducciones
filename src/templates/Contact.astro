@@ -10,9 +10,6 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 
 const { title, description, thumbnail } = entry.data;
-
-// Porting the form HTML.
-// Using standard Netlify form submission (no JS hijack required for basic functionality).
 ---
 
 <Layout title={title} description={description}>
@@ -26,55 +23,197 @@ const { title, description, thumbnail } = entry.data;
     <div class="post-content-body">
       <Content />
 
-      <h3 id="forms">Form</h3>
-      <form name="contact" method="POST" data-netlify="true" action="/contact/thanks">
-        <input type="hidden" name="form-name" value="contact" />
-        <p hidden>
-           <label>Don’t fill this out: <input name="bot-field" /></label>
-        </p>
+      <h3 id="forms">Contactanos</h3>
 
-        <div class="row gtr-uniform">
-          <div class="col-6 col-12-xsmall">
-            <input type="text" name="first-name" id="first-name" placeholder="First Name" required />
-          </div>
-          <div class="col-6 col-12-xsmall">
-            <input type="text" name="last-name" id="last-name" placeholder="Last Name" required />
-          </div>
+      <form method="POST" action="https://formspree.io/f/xojlekbw">
+        <input type="hidden" name="_subject" value="Nuevo contacto desde Minuto Producciones" />
+        <!-- Si /contact/thanks NO existe, cambiá esto por /contact o por tu vercel.app -->
+        <input type="hidden" name="_redirect" value="https://minutoproducciones.com.ar/contact/thanks" />
 
-          <div class="col-6 col-12-xsmall">
-            <input type="email" name="email" id="demo-email" placeholder="Email" required />
-          </div>
-          <div class="col-6 col-12-xsmall">
-            <input type="text" name="location" id="location" placeholder="Location" required />
-          </div>
+        <div class="form-grid">
+          <input
+            type="text"
+            name="first-name"
+            id="first-name"
+            placeholder="Nombre"
+            autocomplete="given-name"
+            required
+          />
 
-          <div class="col-12">
-            <select name="category" id="category" required>
-              <option value="">-Nature of Enquiry-</option>
-              <option value="General">General</option>
-              <option value="Purchase">Purchase</option>
-              <option value="Commissions">Commissions</option>
-              <option value="Exhibitions">Exhibitions</option>
-              <option value="Gallery Feature">Gallery Feature</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
+          <input
+            type="text"
+            name="last-name"
+            id="last-name"
+            placeholder="Apellido"
+            autocomplete="family-name"
+            required
+          />
 
-          <div class="col-12">
-            <textarea name="message" id="message" placeholder="Enter your message" rows="6" required></textarea>
-          </div>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            autocomplete="email"
+            required
+          />
 
-          <div data-netlify-recaptcha="true"></div>
+          <input
+            type="text"
+            name="ubicacion"
+            id="ubicacion"
+            placeholder="Ubicación / Empresa"
+            autocomplete="organization"
+          />
 
-          <div class="col-12">
-            <ul class="actions">
-              <li>
-                <input type="submit" value="Send Message" class="primary" />
-              </li>
-            </ul>
-          </div>
+          <textarea
+            name="message"
+            id="message"
+            placeholder="Dejanos tu mensaje"
+            rows="6"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-actions">
+          <input type="submit" value="Enviar" class="primary" />
         </div>
       </form>
+
+      <div class="contact-socials-wrap" aria-label="Redes sociales">
+        <p class="contact-socials-title">También podés escribirnos por redes</p>
+
+        <div class="contact-socials">
+          <a
+            href="https://www.instagram.com/minutoproducciones"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.9a1.1 1.1 0 100 2.2 1.1 1.1 0 000-2.2z"/>
+            </svg>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/company/minuto-producciones"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4.98 3.5a2.5 2.5 0 110 5 2.5 2.5 0 010-5zM3 8.98h3.96V21H3V8.98zM9.5 8.98h3.8v1.64h.05c.53-1 1.82-2.05 3.75-2.05 4 0 4.74 2.63 4.74 6.05V21h-3.96v-5.2c0-1.24-.02-2.83-1.73-2.83-1.73 0-2 1.35-2 2.74V21H9.5V8.98z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
     </div>
   </article>
 </Layout>
+
+<style>
+  /* Layout base del form (sin depender de clases del theme que no existen) */
+  .contact-form form .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 1.25rem;
+  }
+
+  @media (max-width: 700px) {
+    .contact-form form .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .contact-form form input[type="text"],
+  .contact-form form input[type="email"],
+  .contact-form form textarea {
+    width: 100%;
+    font-family: var(--font-sans-serif);
+    font-size: 1rem;
+    line-height: 1.2;
+
+    color: inherit;
+    background: transparent;
+
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 0.35rem;
+
+    padding: 0.9rem 1rem;
+  }
+
+  .contact-form form textarea {
+    grid-column: 1 / -1;
+    min-height: 10rem;
+    resize: vertical;
+  }
+
+  .contact-form form input:focus,
+  .contact-form form textarea:focus {
+    outline: none;
+    border-color: rgba(0, 0, 0, 0.45);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+  }
+
+  .contact-form form .form-actions {
+    margin-top: 14px;
+  }
+
+.contact-form form input[type="submit"].primary {
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 0.35rem;
+  padding: 0.85rem 1.2rem;
+  font-family: var(--font-sans-serif);
+  font-weight: 600;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.85);
+  color: #111;
+}
+
+.contact-form form input[type="submit"].primary:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+  /* Redes */
+  .contact-socials-wrap {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .contact-socials-title {
+    margin: 0 0 0.75rem;
+    opacity: 0.8;
+    font-size: 0.95rem;
+  }
+
+  .contact-socials {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+  }
+
+  .contact-socials a {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.06);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+
+  .contact-socials a:hover {
+    transform: translateY(-2px);
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  .contact-socials svg {
+    width: 22px;
+    height: 22px;
+    fill: #111;
+  }
+</style>
+
+
