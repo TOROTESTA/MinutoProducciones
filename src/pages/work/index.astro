@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+const pages = await getCollection("pages");
+const entry = pages.find((p) => p.slug === "work");
+
+if (!entry) {
+  throw new Error("No existe la página 'work' en src/content/pages/work.md");
+}
+
+const { Content } = await entry.render();
+const { title, description, thumbnail } = entry.data;
+---
+
+<Layout title={title} description={description}>
+  <article class={`post-content ${thumbnail ? "" : "no-image"}`}>
+    {description && <p class="post-content-excerpt">{description}</p>}
+
+    {thumbnail && (
+      <div class="post-content-image">
+        <img src={thumbnail} class="kg-image" alt={title} />
+      </div>
+    )}
+
+    <div class="post-content-body">
+      <Content />
+    </div>
+  </article>
+</Layout>

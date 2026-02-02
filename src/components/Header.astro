@@ -47,13 +47,31 @@ const { title } = Astro.props;
     </div>
 
     <div class="site-head-right">
-      <div class="social-links">
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
-          <!-- tus svgs -->
-          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        </button>
-      </div>
+     <div class="header-socials">
+      <a
+      href="INSTAGRAM_URL"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Instagram"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.9a1.1 1.1 0 100 2.2 1.1 1.1 0 000-2.2z"/>
+      </svg>
+    </a>
+
+    <a
+      href="LINKEDIN_URL"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4.98 3.5a2.5 2.5 0 110 5 2.5 2.5 0 010-5zM3 8.98h3.96V21H3V8.98zM9.5 8.98h3.8v1.64h.05c.53-1 1.82-2.05 3.75-2.05 4 0 4.74 2.63 4.74 6.05V21h-3.96v-5.2c0-1.24-.02-2.83-1.73-2.83-1.73 0-2 1.35-2 2.74V21H9.5V8.98z"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
     </div>
   </div>
 </header>
@@ -136,5 +154,40 @@ const { title } = Astro.props;
       max-width: 160px;
     }
   }
+  .header-socials {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .header-socials a {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.06);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+
+  .header-socials a:hover {
+    transform: translateY(-1px);
+    background: rgba(0,0,0,0.12);
+  }
+
+  .header-socials svg {
+    width: 22px;
+    height: 22px;
+    fill: #111;
+  }
+
+  /* Mobile */
+  @media (max-width: 700px) {
+  .header-socials a { width: 40px; height: 40px; }
+  .header-socials svg { width: 22px; height: 22px; }
+  }
+
+  
 </style>
 
