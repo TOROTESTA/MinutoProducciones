@@ -1,14 +1,12 @@
 ---
 templateKey: work-page
+title: Nosotros
+description: Sobre nosotros
+thumbnail: /img/PortadaHQ1.JPG
+featuredimage: /img/PortadaHQ1.JPG
+number: 2
 pagetype:
   - main
-title: Nosotros
-date: 2023-03-02T10:17:05.133Z
-thumbnail: img/PortadaHQ1.JPG
-description: Sobre nosotros
-number: 2
-featuredimage: img/PortadaHQ1.JPG
-
 ---
 
 Diseñamos y producimos experiencias, adaptándonos a la necesidad de cada cliente para transformar ideas en momentos reales.
